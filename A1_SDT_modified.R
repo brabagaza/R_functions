@@ -8,7 +8,6 @@ legend("topright", legend=c("signal", "foil"), lty=c(2, 1))
 abline(h=0, col="gray31")  
 curve(dnorm(x, input_d, input_sigma_sn), lty=2, add=T)
 
-
 #
 z_n <- seq(from=input_c, to=pi+foil_mean, length=50)
 z_n_y <- seq(from=input_c-foil_mean, to=pi, length=50)
