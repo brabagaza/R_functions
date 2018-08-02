@@ -46,6 +46,16 @@ scalar = .05
 segments(input_d+2 - scalar, likely, input_d+2+scalar, likely, col = 'red', lwd = 4)
 segments(input_d+2 - scalar, 0, input_d+2+scalar, 0, col = 'red', lwd = 4)
 
+####Van
+#draw the foil likelihood line
+segments(input_c,0.39, 10, 0.39, col = "blue")
+segments(10,0,10,0.39, col = "black")
+text(9.7,0.39-0.39/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
+
+#draw the signal likelihood line
+segments(input_c,0.07, 10, 0.07, col = "blue")
+segments(9.5,0,9.5,0.07, col = "black")
+text(9.2,0.07-0.07/3,"foil likelihood", srt = 90)
 
 
 #############################
