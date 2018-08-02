@@ -4,11 +4,18 @@ input_c = 4.2
 input_d =  6
 input_sigma_sn= 1
 foil_mean = 4
+
+#set margines:
+par(mar=c(5,5,3,7), xpd = NA) #bottom, left, top and right margins, xpd = sets clipping to 'off' so that lables of likelyhoods are plotted and not clipped
+
 curve(dnorm(x, foil_mean, 1), xlim=c(0, 10), ylim=c(0, .55),
-      xlab="Decision variable", ylab="Probability")
-legend("topright", legend=c("signal", "foil"), lty=c(2, 1))
-abline(h=0, col="gray31")  
-curve(dnorm(x, input_d, input_sigma_sn), lty=2, add=T)
+      xlab="Decision variable", ylab="Probability", frame=FALSE)
+      legend("topright", legend=c("signal", "foil"), lty=c(2, 1))
+      abline(h=0, col="gray31")  
+      curve(dnorm(x, input_d, input_sigma_sn), lty=2, add=T)
+
+#cover line to get rid of black line underneath
+abline(h = 0,col= 'white')
 
 #
 z_n <- seq(from=input_c, to=pi+foil_mean, length=50)
@@ -37,30 +44,18 @@ text((input_d+foil_mean)/2, 0.44, "d'")
 #draw the foil likelihood line
 scalar = .05
 foil_like = 0.39
-location_foil_like = 10
-segments(input_c,foil_like, 10, foil_like, col = "blue")
-segments(10,0,10,0.39, col = "black")
-text(location_foil_like - .3,foil_like-foil_like/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
+location_foil_like = 12
+segments(input_c,foil_like, location_foil_like, foil_like, col = "blue")
+segments(location_foil_like,0, location_foil_like,0.39, col = "black")
+text(location_foil_like - .4,foil_like-foil_like/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
 segments(location_foil_like- scalar, foil_like, location_foil_like+ scalar, foil_like, col = 'black', lwd = 4)
 segments(location_foil_like- scalar, 0, location_foil_like+ scalar, 0, col = 'black', lwd = 4)
 
 #draw the signal likelihood line
 signal_like = 0.07
-location_signal_like = 9.5
-segments(input_c,signal_like, 10, signal_like, col = "blue")
+location_signal_like = 11
+segments(input_c,signal_like, location_signal_like, signal_like, col = "blue")
 segments(location_signal_like,0,location_signal_like,signal_like, col = "black")
-text(location_signal_like - .3,signal_like-signal_like/3,"foil likelihood", srt = 90)
+text(location_signal_like - .4,signal_like-signal_like/3,"foil likelihood", srt = 90)
 segments(location_signal_like - scalar, signal_like, location_signal_like+scalar, signal_like, col = 'black', lwd = 4)
 segments(location_signal_like - scalar, 0, location_signal_like+scalar, 0, col = 'black', lwd = 1)
-
-
-##roelof:
-#turning of the right side of the graph + 
-#extending the margins to create more space for likelihood labels
-
-
-
-
-
-
-
