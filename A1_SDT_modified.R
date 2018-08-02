@@ -33,36 +33,30 @@ segments(input_d, 0, input_d, 0.43, lty=3)
 text((input_d+foil_mean)/2, 0.44, "d'")
 
 
-
-#adding the likelyhood lines
-likely = .35
-segments(foil_mean+3, likely, input_d+2, likely,  lty=3)
-#segments(foil_mean+3, 0, foil_mean+3, 0.42,  lty=3, col = 'red')
-segments(input_d+2, 0, input_d+2, likely,  col = 'red')
-
-#small end line to top the line off with:
-scalar = .05
-segments(input_d+2 - scalar, likely, input_d+2+scalar, likely, col = 'red', lwd = 4)
-segments(input_d+2 - scalar, 0, input_d+2+scalar, 0, col = 'red', lwd = 4)
-
 ####Van
 #draw the foil likelihood line
-segments(input_c,0.39, 10, 0.39, col = "blue")
+scalar = .05
+foil_like = 0.39
+location_foil_like = 10
+segments(input_c,foil_like, 10, foil_like, col = "blue")
 segments(10,0,10,0.39, col = "black")
-text(9.7,0.39-0.39/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
+text(location_foil_like - .3,foil_like-foil_like/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
+segments(location_foil_like- scalar, foil_like, location_foil_like+ scalar, foil_like, col = 'black', lwd = 4)
+segments(location_foil_like- scalar, 0, location_foil_like+ scalar, 0, col = 'black', lwd = 4)
 
 #draw the signal likelihood line
-segments(input_c,0.07, 10, 0.07, col = "blue")
-segments(9.5,0,9.5,0.07, col = "black")
-text(9.2,0.07-0.07/3,"foil likelihood", srt = 90)
+signal_like = 0.07
+location_signal_like = 9.5
+segments(input_c,signal_like, 10, signal_like, col = "blue")
+segments(location_signal_like,0,location_signal_like,signal_like, col = "black")
+text(location_signal_like - .3,signal_like-signal_like/3,"foil likelihood", srt = 90)
+segments(location_signal_like - scalar, signal_like, location_signal_like+scalar, signal_like, col = 'black', lwd = 4)
+segments(location_signal_like - scalar, 0, location_signal_like+scalar, 0, col = 'black', lwd = 1)
 
 
-#############################
-#c= 2
-#z_n_y <- seq(from=c, to=pi, length=50)
-#x = seq(1, 50)
-#y = dnorm(z_n_y)
-#plot(x,y)
+##roelof:
+#turning of the right side of the graph + 
+#extending the margins to create more space for likelihood labels
 
 
 
