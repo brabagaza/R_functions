@@ -40,20 +40,20 @@ text((input_d+foil_mean)/2, 0.44, "d'")
 
 ####Van
 #draw the foil likelihood line
-scalar = .05
+scalar = .1
 foil_like = 0.39
 location_foil_like = 12
 segments(input_c,foil_like, location_foil_like, foil_like, col = "blue")
 segments(location_foil_like,0, location_foil_like,0.39, col = "black")
-text(location_foil_like + .4,foil_like-foil_like/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
-#segments(location_foil_like- scalar, foil_like, location_foil_like+ scalar, foil_like, col = 'black', lwd = 4)
-#segments(location_foil_like- scalar, 0, location_foil_like+ scalar, 0, col = 'black', lwd = 4)
+text(location_foil_like + .5,foil_like-foil_like/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
+segments(location_foil_like- scalar, foil_like, location_foil_like+ scalar, foil_like, col = 'black')
+segments(location_foil_like- scalar, 0, location_foil_like+ scalar, 0, col = 'black')
 
 #draw the signal likelihood line
 signal_like = 0.07
 location_signal_like = 11
 segments(input_c,signal_like, location_signal_like, signal_like, col = "blue")
 segments(location_signal_like,0,location_signal_like,signal_like, col = "black")
-text(location_signal_like + .4,signal_like-signal_like/3,"signal likelihood", srt = 90)
-#segments(location_signal_like - scalar, signal_like, location_signal_like+scalar, signal_like, col = 'black', lwd = 4)
-#segments(location_signal_like - scalar, 0, location_signal_like+scalar, 0, col = 'black', lwd = 1)
+text(location_signal_like + .5,signal_like-signal_like/3,"signal likelihood", srt = 90)
+segments(location_signal_like - scalar, signal_like, location_signal_like+scalar, signal_like, col = 'black')
+segments(location_signal_like - scalar, 0, location_signal_like+scalar, 0, col = 'black')
