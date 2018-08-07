@@ -1,15 +1,17 @@
-###################new change from brbagaza to van ###############
-#Roelof 
 input_c = 4.2
 signal_mean =  6
 input_sigma_sn= .8
 foil_mean = 4
+
+SDT <- function(input_c, signal_mean, input_sigma_sn, foil_mean) {
 
 
 #initiate empty plot
 plot.new()
 #set margines:
 par(mar=c(5,5,3,7), xpd = T) #bottom, left, top and right margins, xpd = sets clipping to 'off' so that lables of likelyhoods are plotted and not clipped
+
+nr_n = 50 
 
 #plot(a)
 curve(dnorm(x, foil_mean, input_sigma_sn), n= nr_n, xlim=c(0, 10), ylim=c(0, .55),
@@ -64,3 +66,5 @@ segments(location_signal_like,0,location_signal_like,signal_like, col = "black")
 text(location_signal_like + .5,signal_like-signal_like/3,"signal likelihood", srt = 90)
 segments(location_signal_like - scalar, signal_like, location_signal_like+scalar, signal_like, col = 'black')
 segments(location_signal_like - scalar, 0, location_signal_like+scalar, 0, col = 'black')
+
+}
