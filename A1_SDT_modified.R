@@ -1,4 +1,4 @@
-#Van testing if Git works
+###################new change from brbagaza to van ###############
 input_c = 4.2
 signal_mean =  6
 input_sigma_sn= .8
