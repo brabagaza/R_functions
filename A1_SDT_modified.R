@@ -1,8 +1,10 @@
 ###################new change from brbagaza to van ###############
+#Roelof 
 input_c = 4.2
 signal_mean =  6
 input_sigma_sn= .8
 foil_mean = 4
+
 
 #initiate empty plot
 plot.new()
