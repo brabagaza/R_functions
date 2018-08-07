@@ -4,8 +4,8 @@ signal_mean =  6
 input_sigma_sn= .8
 foil_mean = 4
 
-SDT_func <- function(input_c, signal_mean,input_sigma_sn,foil_mean) {
-  
+SDT <- function(input_c, signal_mean, input_sigma_sn, foil_mean) {
+
   #initiate empty plot
   plot.new()
   #set margines:
@@ -68,11 +68,9 @@ SDT_func <- function(input_c, signal_mean,input_sigma_sn,foil_mean) {
   
 }
 
-
 input_c = 4.2
 signal_mean =  6
 input_sigma_sn= .8
 foil_mean = 4
 
 SDT_func(input_c, signal_mean,input_sigma_sn,foil_mean)
-
