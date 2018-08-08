@@ -62,5 +62,10 @@ SDT <- function(input_c, target_mean, input_sigma, foil_mean) {
   segments(location_target_like - scalar, 0, location_target_like+scalar, 0, col = 'black') #the end bits
   
 }
+input_c = 4.2
+target_mean = 6
+input_sigma = 1
+foil_mean = 4
 
-SDT(4.2,6,1,4)
+SDT(input_c, target_mean, input_sigma, foil_mean)
+  
