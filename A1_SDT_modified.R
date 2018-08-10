@@ -3,13 +3,13 @@
 SDT <- function(criterion, signal_mean, noise_mean, input_sigma = 1, likelihood_line_col = 'gray31', col1= rgb(70/255, 130/255, 180/255, .85), col2= rgb(135/255, 206/255, 235/255, 0.35), criterion_col = "pink3", line_col = "black") {
 
   #initiate empty plot
-  3plot.new()
+  plot.new()
   #set margines:
   par(mar=c(5,5,3,7), xpd = T) #bottom, left, top and right margins, xpd = sets clipping to 'off' so that lables of likelihoods are plotted and not clipped
   
   nr_n = 50
   #plot(a)
-  curve(dnorm(x, noise_mean, input_sigma), n= nr_n, xlim=c(0, signal_mean+4), ylim=c(0, .55),
+  curve(dnorm(x, noise_mean, input_sigma), n= nr_n, xlim=c(0, signal_mean+input_sigma + 3), ylim=c(0, dnorm(0, sd = input_sigma)+.1),
         xlab="Decision variable", ylab="Probability", frame=FALSE)
   legend("topright", legend=c("target", "foil"), lty=c(2, 1))
   
@@ -30,8 +30,8 @@ SDT <- function(criterion, signal_mean, noise_mean, input_sigma = 1, likelihood_
           col=col2, border=NA)
   
   #c
-  lines(x=c(criterion, criterion), y=c(0, .5), col=criterion_col, lwd=2)
-  text(criterion, 0.52, "c")
+  lines(x=c(criterion, criterion), y=c(0, dnorm(0, sd = input_sigma)+0.08), col=criterion_col, lwd=2)
+  text(criterion, dnorm(0, sd = input_sigma) + 0.1,  "c")
   #d
   d_line_height = dnorm(0, sd = input_sigma)
   segments(noise_mean, d_line_height + 0.02, signal_mean, d_line_height + 0.02) #horizontal line
@@ -63,14 +63,13 @@ SDT <- function(criterion, signal_mean, noise_mean, input_sigma = 1, likelihood_
   
 }
 
-criterion = 4
+criterion = 4.2
 signal_mean = 6
 noise_mean = 4
-#input_sigma = 1 #default at 1
+input_sigma = 1 #default at 1
 #color arguments defaulted at blue, red, black
 
-SDT(criterion, signal_mean, noise_mean)
-
+SDT(criterion, signal_mean, noise_mean, input_sigma)
 
 
 ####documentation:
