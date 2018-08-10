@@ -1,4 +1,13 @@
-#make a function
+#mSDT function
+
+### things to do:
+#make list of parameters at the top of the function, with short var names, to avoid repetition of definitions through out function
+#place text for foil likelihood on two line instead of one
+#decide what added functionality woul dbe handy
+#test savinf high resolution plot, at the moment = very coarse == note varible nr_n, might have to amped up for high res
+#fully test with extreme parameters
+#
+
 
 SDT <- function(criterion, signal_mean, noise_mean, input_sigma = 1, likelihood_line_col = 'gray31', col1= rgb(70/255, 130/255, 180/255, .85), col2= rgb(135/255, 206/255, 235/255, 0.35), criterion_col = "pink3", line_col = "black") {
 
@@ -70,7 +79,6 @@ input_sigma = 1 #default at 1
 #color arguments defaulted at blue, red, black
 
 SDT(criterion, signal_mean, noise_mean, input_sigma)
-
 
 ####documentation:
 # 
