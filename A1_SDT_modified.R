@@ -1,6 +1,6 @@
 #make a function
 
-SDT <- function(input_c, target_mean, input_sigma, foil_mean) {
+SDT <- function(criterion, signal_mean, noise_mean, input_sigma = 1, likelihood_line_col = 'gray31', col1= rgb(70/255, 130/255, 180/255, .85), col2= rgb(135/255, 206/255, 235/255, 0.35), criterion_col = "pink3", line_col = "black") {
 
   #initiate empty plot
   plot.new()
@@ -9,63 +9,113 @@ SDT <- function(input_c, target_mean, input_sigma, foil_mean) {
   
   nr_n = 50
   #plot(a)
-  curve(dnorm(x, foil_mean, input_sigma), n= nr_n, xlim=c(0, 10), ylim=c(0, .55),
+  curve(dnorm(x, noise_mean, input_sigma), n= nr_n, xlim=c(0, 10), ylim=c(0, .55),
         xlab="Decision variable", ylab="Probability", frame=FALSE)
   legend("topright", legend=c("target", "foil"), lty=c(2, 1))
   
-  segments(0,0, 10,0, col="gray31")  
-  curve(dnorm(x, target_mean, input_sigma), lty=2, add=T)
+  segments(0,0, 10,0, col=likelihood_line_col)  
+  curve(dnorm(x, signal_mean, input_sigma), lty=2, add=T)
   
   #shading:
-  z_n <- seq(from=input_c, to=pi+foil_mean, length=50)
-  z_n_y <- seq(from=input_c-foil_mean, to=pi, length=50)
+  z_n <- seq(from=criterion, to=pi+noise_mean, length=50)
+  z_n_y <- seq(from=criterion-noise_mean, to=pi, length=50)
   
-  polygon(x=c(input_c, z_n, pi+foil_mean),
+  polygon(x=c(criterion, z_n, pi+noise_mean),
           y=c(0, dnorm(z_n_y, sd=input_sigma), 0),
-          col=rgb(70/255, 130/255, 180/255, .85), border=NA)
+          col=col1, border=NA)
   
-  z_sn <- seq(from=input_c, to=2*pi+target_mean, length=100)
-  polygon(x=c(input_c, z_sn, target_mean+2*pi),
-          y=c(0, dnorm(z_sn, target_mean, input_sigma), 0),
-          col=rgb(135/255, 206/255, 235/255, 0.35), border=NA)
+  z_sn <- seq(from=criterion, to=2*pi+signal_mean, length=100)
+  polygon(x=c(criterion, z_sn, signal_mean+2*pi),
+          y=c(0, dnorm(z_sn, signal_mean, input_sigma), 0),
+          col=col2, border=NA)
   
   #c
-  lines(x=c(input_c, input_c), y=c(0, .5), col="pink3", lwd=2)
-  text(input_c, 0.52, "c")
+  lines(x=c(criterion, criterion), y=c(0, .5), col=criterion_col, lwd=2)
+  text(criterion, 0.52, "c")
   #d
   d_line_height = dnorm(0, sd = input_sigma)
-  segments(foil_mean, d_line_height + 0.02, target_mean, d_line_height + 0.02) #horizontal line
-  segments(foil_mean, 0, foil_mean, d_line_height+0.02, lty=3) #vertical line at foil mean
-  segments(target_mean, 0, target_mean, d_line_height+0.02, lty=3) #vertical line at target mean
-  text((target_mean+foil_mean)/2, d_line_height+0.04, "d'")
+  segments(noise_mean, d_line_height + 0.02, signal_mean, d_line_height + 0.02) #horizontal line
+  segments(noise_mean, 0, noise_mean, d_line_height+0.02, lty=3) #vertical line at foil mean
+  segments(signal_mean, 0, signal_mean, d_line_height+0.02, lty=3) #vertical line at target mean
+  text((signal_mean+noise_mean)/2, d_line_height+0.04, "d'")
   
   
   #get foil likelihood & corss-over point:
-  foil_like= dnorm(input_c - foil_mean, sd = input_sigma)
-  target_like = dnorm(input_c - target_mean, sd = input_sigma)
+  foil_like= dnorm(criterion - noise_mean, sd = input_sigma)
+  target_like = dnorm(criterion - signal_mean, sd = input_sigma)
   
   #draw the foil likelihood line
   scalar = .1
   location_foil_like = 12
-  segments(input_c,foil_like, location_foil_like, foil_like, lty=3) 
-  segments(location_foil_like,0, location_foil_like,foil_like, col = "black") #actual foil likelihood line
+  segments(criterion,foil_like, location_foil_like, foil_like, lty=3) 
+  segments(location_foil_like,0, location_foil_like,foil_like, col = line_col) #actual foil likelihood line
   text(location_foil_like + .5,foil_like-foil_like/3,"foil likelihood", srt = 90) #srt is to turn the text vertical 
-  segments(location_foil_like- scalar, foil_like, location_foil_like+ scalar, foil_like, col = 'black')
-  segments(location_foil_like- scalar, 0, location_foil_like+ scalar, 0, col = 'black') #the end bits
+  segments(location_foil_like- scalar, foil_like, location_foil_like+ scalar, foil_like, col = line_col)
+  segments(location_foil_like- scalar, 0, location_foil_like+ scalar, 0, col = line_col) #the end bits
   
   #draw the target likelihood line
   location_target_like = 11
-  segments(input_c,target_like, location_target_like, target_like, lty=3)
-  segments(location_target_like,0,location_target_like,target_like, col = "black") #actual target likelihood line
+  segments(criterion,target_like, location_target_like, target_like, lty=3)
+  segments(location_target_like,0,location_target_like,target_like, col = line_col) #actual target likelihood line
   text(location_target_like + .5,target_like-target_like/3,"target likelihood", srt = 90)
-  segments(location_target_like - scalar, target_like, location_target_like+scalar, target_like, col = 'black')
-  segments(location_target_like - scalar, 0, location_target_like+scalar, 0, col = 'black') #the end bits
+  segments(location_target_like - scalar, target_like, location_target_like+scalar, target_like, col = line_col)
+  segments(location_target_like - scalar, 0, location_target_like+scalar, 0, col = line_col) #the end bits
+  
   
 }
-input_c = 4.2
-target_mean = 6
-input_sigma = 1
-foil_mean = 4
 
-SDT(input_c, target_mean, input_sigma, foil_mean)
-  
+criterion = 4.2
+signal_mean = 6
+noise_mean = 4
+#input_sigma = 1 #default at 1
+
+SDT(criterion, signal_mean, noise_mean)
+
+
+
+####documentation:
+# 
+# SDT plotting function
+# 
+# Description
+# 
+# plots two standard distributions with criterion, d prime and likelyhoods for signal and noise_mean
+# 
+# Usage
+# 
+# SDT(criterion, signal_mean, noise_mean, input_sigma, = 1)
+# 
+# Arguments
+# 
+# criterion single number, integer or float
+# signal_mean single number, integer or float
+# noise_mean single number, integer or float
+# input_sigma single number, integer or float
+#
+#color arguments:
+# likelihood_line_col = 'gray31', 
+# col1= rgb(70/255, 130/255, 180/255, .85)
+# col2= rgb(135/255, 206/255, 235/255, 0.35)
+# criterion_col = "pink3"
+# line_col = "black"
+# 
+# Details
+# 
+# criterion, signal_mean, noise_mean are necessary, sigma (standard deviation) is set at 1.
+# colors are at the moment hard coded in the function, criterion usually lies between signal and noise mean.
+# 
+# source
+# 
+# reference the orignal online source
+# 
+# Examples
+# 1##
+# SDT(1.5, 1, 2)
+# 
+# 2##
+# c = 1
+# sm = -1
+# nm = 2
+# sigma 5
+# SDT(c, sm , nm, sigma)
+
